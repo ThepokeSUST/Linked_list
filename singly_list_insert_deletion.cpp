@@ -18,7 +18,7 @@ class node{
 class linkedlist{
       
       node* head;
-
+      int size=0;
     public:
 
       linkedlist(){
@@ -27,6 +27,7 @@ class linkedlist{
 
    
    void insert_head(int ele){
+
         node* newnode=new node(ele);
 
         if(head==NULL){
@@ -36,6 +37,8 @@ class linkedlist{
 
         newnode->next=head;
         head=newnode;
+
+        size++;
 
    }
 
@@ -53,10 +56,37 @@ class linkedlist{
         temp=temp->next;
     }
     temp->next=newnode;
-
+    size++;
    }
 
+  
+  void delete_ele(int ele){
+       
+       node* temp=head;
+      node* par=temp;
+       while(temp!=NULL and temp->data!=ele){
+        par=temp;
+        temp=temp->next;
+
+       }
+     if(temp==head){
+      head=head->next;
+      free(temp);
+     }
+     else{
+       par->next=temp->next;
+       free(temp);
+     }
+     
+  }
+
+
    void display(){
+    if(head==NULL){
+      cout<<"Empty";
+      return;
+    }
+
    node* temp=head;
 
     while(temp!=NULL){
@@ -66,6 +96,12 @@ class linkedlist{
     cout<<"NULL";
 
    }
+   
+   int sizeOF(){
+    return this->size;
+   }
+
+
 
 
 };
@@ -82,4 +118,15 @@ int main(){
      li.insert_tail(25);
 
      li.display();
+     cout<<endl;
+
+     li.delete_ele(100);
+     li.delete_ele(9);
+     li.display();
+     cout<<endl;
+
+     li.delete_ele(25);
+     li.display();
+
+     
 }
